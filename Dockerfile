@@ -1,4 +1,4 @@
-FROM buildpack-deps:18.10
+FROM buildpack-deps:focal
 
 LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
 
