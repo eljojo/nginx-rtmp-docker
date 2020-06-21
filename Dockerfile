@@ -1,9 +1,9 @@
-FROM buildpack-deps:20.04
+FROM buildpack-deps:18.10
 
 LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
 
 # Versions of Nginx and nginx-rtmp-module to use
-ENV NGINX_VERSION nginx-1.19.0
+ENV NGINX_VERSION nginx-1.17.2
 ENV NGINX_RTMP_MODULE_VERSION master
 
 # Install dependencies
