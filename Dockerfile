@@ -3,10 +3,11 @@ FROM buildpack-deps:18.10
 LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
 
 # Versions of Nginx and nginx-rtmp-module to use
-ENV NGINX_VERSION nginx-1.17.2
-ENV NGINX_RTMP_MODULE_VERSION master
+ENV NGINX_VERSION nginx-1.19.0
+ENV NGINX_RTMP_MODULE_VERSION dev
 
 # Install dependencies
+RUN grep '^deb ' /etc/apt/sources.list | sed 's/^deb /deb-src /g' | tee /etc/apt/sources.list.d/deb-src.list
 RUN apt-get update
 RUN apt-get -y build-dep nginx
 RUN apt-get install -y ca-certificates ffmpeg libssl-dev && \
@@ -28,6 +29,7 @@ RUN mkdir -p /tmp/build/nginx-rtmp-module && \
 # Build and install Nginx
 # The default puts everything under /usr/local/nginx, so it's needed to change
 # it explicitly. Not just for order but to have it in the PATH
+# https://github.com/arut/nginx-rtmp-module/issues/1283
 RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
     ./configure \
         --sbin-path=/usr/local/sbin/nginx \
