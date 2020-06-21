@@ -1,4 +1,4 @@
-FROM buildpack-deps:stretch
+FROM buildpack-deps:20.04
 
 LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
 
@@ -8,7 +8,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.1.7.10
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl libssl-dev && \
+    apt-get install -y ca-certificates build-essential libpcre3 libpcre3-dev ffmpeg openssl libssl-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
