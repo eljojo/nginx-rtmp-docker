@@ -7,8 +7,9 @@ ENV NGINX_VERSION nginx-1.17.2
 ENV NGINX_RTMP_MODULE_VERSION master
 
 # Install dependencies
-RUN apt-get update && \
-    apt-get install -y ca-certificates build-essential libpcre3 libpcre3-dev ffmpeg openssl libssl-dev && \
+RUN apt-get update
+RUN apt-get -y build-dep nginx
+RUN apt-get install -y ca-certificates ffmpeg libssl-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
