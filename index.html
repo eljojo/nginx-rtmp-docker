@@ -3,37 +3,40 @@
 <head>
 <meta charset='UTF-8'>
 <title>radio</title>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
 </head>
 <body>
+  <h1 style="font-family: Comic Sans MS;">radio.eljojo.net</h1>
+  <div class="container">
+    <audio controls crossorigin playsinline autoplay></audio>
+  </div>
 
-<div class="container">
-<audio controls crossorigin playsinline></audio>
-</div>
-
-<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
-<script src="https://unpkg.com/plyr@3"></script>
-<script id="INLINE_PEN_JS_ID">
+  <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+  <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-  const source = '/hls/jojo.m3u8';
-  const audio = document.querySelector('audio');
+      const source = '/hls/jojo.m3u8';
+      const audio = document.querySelector('audio');
 
-  // For more options see: https://github.com/sampotts/plyr/#options
-  // captions.update is required for captions to work with hls.js
-  const player = new Plyr(audio, { captions: { active: true, update: true, language: 'en' } });
+      // For more options see: https://github.com/sampotts/plyr/#options
+      // captions.update is required for captions to work with hls.js
+      const player = new Plyr(audio, {
+        controls: ['play-large', 'play', 'progress', 'mute', 'volume', 'airplay', 'rewind', 'fast-forward'],
+        keyboard: { focused: true, global: true }
+      });
 
-  if (!Hls.isSupported()) {
-    audio.src = source;
-  } else {
-    // For more Hls.js options, see https://github.com/dailymotion/hls.js
-    const hls = new Hls();
-    hls.loadSource(source);
-    hls.attachMedia(audio);
-    window.hls = hls;
-  }
-  // Expose player so it can be used from the console
-  window.player = player;
-});
+      if (!Hls.isSupported()) {
+        audio.src = source;
+      } else {
+        // For more Hls.js options, see https://github.com/dailymotion/hls.js
+        const hls = new Hls();
+        hls.loadSource(source);
+        hls.attachMedia(audio);
+        window.hls = hls;
+      }
+      // Expose player so it can be used from the console
+      window.player = player;
+    });
   </script>
 </body>
 </html>
