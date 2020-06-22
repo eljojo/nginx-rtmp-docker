@@ -3,6 +3,7 @@
 <head>
 <meta charset='UTF-8'>
 <title>radio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
 </head>
 <body>
@@ -22,7 +23,8 @@
       // captions.update is required for captions to work with hls.js
       const player = new Plyr(audio, {
         controls: ['play-large', 'play', 'progress', 'mute', 'volume', 'airplay', 'rewind', 'fast-forward'],
-        keyboard: { focused: true, global: true }
+        keyboard: { focused: true, global: true },
+        autoplay: true
       });
 
       if (!Hls.isSupported()) {
