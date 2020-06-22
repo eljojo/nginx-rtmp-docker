@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en' class=''>
+<head>
+<meta charset='UTF-8'>
+<title>radio</title>
+</head>
+<body>
+
+<div class="container">
+<audio controls crossorigin playsinline></audio>
+</div>
+
+<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+<script src="https://unpkg.com/plyr@3"></script>
+<script id="INLINE_PEN_JS_ID">
+    document.addEventListener('DOMContentLoaded', () => {
+  const source = '/stream/jojo.m3u8';
+  const audio = document.querySelector('audio');
+
+  // For more options see: https://github.com/sampotts/plyr/#options
+  // captions.update is required for captions to work with hls.js
+  const player = new Plyr(audio, { captions: { active: true, update: true, language: 'en' } });
+
+  if (!Hls.isSupported()) {
+    audio.src = source;
+  } else {
+    // For more Hls.js options, see https://github.com/dailymotion/hls.js
+    const hls = new Hls();
+    hls.loadSource(source);
+    hls.attachMedia(audio);
+    window.hls = hls;
+  }
+  // Expose player so it can be used from the console
+  window.player = player;
+});
+  </script>
+</body>
+</html>
