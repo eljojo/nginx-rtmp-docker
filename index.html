@@ -16,7 +16,7 @@
   <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const source = '/hls/jojo.m3u8';
+      const source = 'https://radio-cdn.eljojo.net/hls/jojo.m3u8';
       const audio = document.querySelector('audio');
 
       // For more options see: https://github.com/sampotts/plyr/#options
@@ -57,7 +57,7 @@
 		  var stateChanged = cast.framework.CastContextEventType.CAST_STATE_CHANGED;
 		  castContext.addEventListener(stateChanged, function(event){
 			  var castSession = castContext.getCurrentSession();
-			  var media = new chrome.cast.media.MediaInfo('https://radio.eljojo.net/hls/jojo.m3u8', 'application/vnd.apple.mpegurl');
+			  var media = new chrome.cast.media.MediaInfo('https://radio-cdn.eljojo.net/hls/jojo.m3u8', 'application/vnd.apple.mpegurl');
 			  var request = new chrome.cast.media.LoadRequest(media);
 
 			  castSession && castSession
