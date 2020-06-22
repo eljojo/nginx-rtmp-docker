@@ -10,19 +10,19 @@
   <h1 style="font-family: Comic Sans MS;">radio.eljojo.net</h1>
   <div class="container">
     <audio controls crossorigin playsinline autoplay></audio>
+    <google-cast-launcher></google-cast-launcher>
   </div>
-
   <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
   <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const source = '/hls/jojo.m3u8';
+      const source = 'https://radio.eljojo.net/hls/jojo.m3u8';
       const audio = document.querySelector('audio');
 
       // For more options see: https://github.com/sampotts/plyr/#options
       // captions.update is required for captions to work with hls.js
       const player = new Plyr(audio, {
-        controls: ['play-large', 'play', 'progress', 'mute', 'volume', 'airplay', 'rewind', 'fast-forward'],
+        controls: ['play-large', 'play', 'mute', 'volume', 'airplay', 'rewind', 'fast-forward'],
         keyboard: { focused: true, global: true },
         autoplay: true
       });
@@ -39,6 +39,37 @@
       // Expose player so it can be used from the console
       window.player = player;
     });
+  </script>
+  <script src='https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1'></script>
+  <script>
+	  window.__onGCastApiAvailable = function(isAvailable){
+		  if(! isAvailable){
+			  return false;
+		  }
+
+		  var castContext = cast.framework.CastContext.getInstance();
+
+		  castContext.setOptions({
+			  autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+			  receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID
+		  });
+
+		  var stateChanged = cast.framework.CastContextEventType.CAST_STATE_CHANGED;
+		  castContext.addEventListener(stateChanged, function(event){
+			  var castSession = castContext.getCurrentSession();
+			  var media = new chrome.cast.media.MediaInfo('https://radio.eljojo.net/hls/jojo.m3u8', 'audio/aac');
+			  var request = new chrome.cast.media.LoadRequest(media);
+
+			  castSession && castSession
+				  .loadMedia(request)
+				  .then(function(){
+					  console.log('Success');
+				  })
+				  .catch(function(error){
+					  console.log('Error: ' + error);
+				  });
+		  });
+	  };
   </script>
 </body>
 </html>
