@@ -56,6 +56,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY entrypoint.sh /usr/share/nginx/entrypoint.sh
 COPY index.html /var/www/static/
+COPY stat.xsl /var/www/static/
 
 EXPOSE 1935
 # CMD ["nginx", "-g", "daemon off;"]
