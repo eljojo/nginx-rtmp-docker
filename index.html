@@ -57,7 +57,7 @@
 		  var stateChanged = cast.framework.CastContextEventType.CAST_STATE_CHANGED;
 		  castContext.addEventListener(stateChanged, function(event){
 			  var castSession = castContext.getCurrentSession();
-			  var media = new chrome.cast.media.MediaInfo('http://67.205.173.194:31001/jojo.aac', 'audio/aac');
+			  var media = new chrome.cast.media.MediaInfo('/jojo.aac', 'audio/aac');
 			  var request = new chrome.cast.media.LoadRequest(media);
 
 			  castSession && castSession
