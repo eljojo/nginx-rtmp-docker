@@ -26,7 +26,7 @@
         });
 
         if (!Hls.isSupported()) {
-          audio.src = '/STREAM_NAME.aac';
+          audio.src = 'http://LEGACY_DOMAIN/STREAM_NAME.aac';
         } else {
           // For more Hls.js options, see https://github.com/dailymotion/hls.js
           const hls = new Hls();
@@ -38,7 +38,6 @@
 
         // URLS
         // - https://DOMAIN/hls/STREAM_NAME.m3u8
-        // - https://DOMAIN/STREAM_NAME.aac
         // - http://LEGACY_DOMAIN/STREAM_NAME.aac
       });
     </script>
